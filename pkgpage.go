@@ -27,11 +27,7 @@ func genPkgPage(p PkgCfg) (err error) {
 		return err
 	}
 
-	if p.Humans {
-		err = detailPackagePage.Execute(out, p)
-	} else {
-		err = basicPackagePage.Execute(out, p)
-	}
+	packagePage.Execute(out, p)
 	if err != nil {
 		return err
 	}
