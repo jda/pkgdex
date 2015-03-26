@@ -19,5 +19,5 @@ type PkgCfg struct {
 	DocURL     string `json:"docurl"`
 	Godoc      string `json:"godoc"`
 	Descr      string `json:"description"`
-	Humans     bool   `json:"human_readable"`
+	Humans     bool   `json:"humans"`
 }

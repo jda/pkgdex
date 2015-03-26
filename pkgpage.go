@@ -6,24 +6,9 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"os"
 	"path/filepath"
 )
-
-// basic page is for redirect-to-godoc-only pages
-var basicPackagePageHTML string = `<head>
-<meta http-equiv="refresh" content="0; URL='{{ .Godoc }}'">
-<meta name="go-import" content="{{ .ImportPath }} {{ .VCS }} {{ .Repo }}">
-</head>
-`
-var basicPackagePage = template.Must(template.New("basicPackagePage").Parse(basicPackagePageHTML))
-
-// detail page is human readable
-var detailPackagePageHTML string = `
-
-`
-var detailPackagePage = template.Must(template.New("detailPackagePage").Parse(detailPackagePageHTML))
 
 // make package page
 func genPkgPage(p PkgCfg) (err error) {
