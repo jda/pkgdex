@@ -18,7 +18,7 @@ var packagePageHTML string = `{{if .Humans}}<html>
 {{ .VCS }}: <a href="{{ .Repo }}">{{ .Repo }}</a></p>
 <h2>Reference</h2>
 <a href="{{ .Godoc }}"><img src="{{ .Godoc }}?status.svg" alt="GoDoc"></a><br>
-{{ if .DocURL }}See also: <a href="{{ .DocURL }}">{{ .DocURL }}</a>{{ end }}
+{{ if .DocURL }}See also: <a href="http://{{ .DocURL }}">{{ .DocURL }}</a>{{ end }}
 </body>
 </html>{{ else }}<head>
 <meta http-equiv="refresh" content="0; URL='{{ .Godoc }}'">
