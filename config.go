@@ -7,7 +7,8 @@ package main
 type Config struct {
 	DestDir         string `json:"destination"`
 	PackageTemplate string `json:"pkgpagetmpl"`
-	IndexTempplate  string `json:"pkgindextmpl"`
+	IndexTemplate   string `json:"pkgindextmpl"`
+	DirIndex        string `json:"directory_index"`
 }
 
 type PkgCfg struct {
@@ -16,5 +17,7 @@ type PkgCfg struct {
 	VCS        string `json:"vcs"`
 	Repo       string `json:"repo"`
 	DocURL     string `json:"docurl"`
+	Godoc      string `json:"godoc"`
 	Descr      string `json:"description"`
+	Humans     bool   `json:"human_readable"`
 }

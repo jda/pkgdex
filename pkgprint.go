@@ -6,10 +6,11 @@ package main
 
 import "fmt"
 
+// pretty print package summary
 func printPkg(p PkgCfg) {
 	fmt.Printf("%s (%s)\n", p.Name, p.ImportPath)
 	fmt.Println("================================================")
 	fmt.Println(p.Descr)
-	fmt.Printf("Godoc: %s\n", godocify(p.ImportPath))
+	fmt.Printf("Godoc: %s\n", p.Godoc)
 	fmt.Println()
 }

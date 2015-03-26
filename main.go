@@ -16,6 +16,8 @@ import (
 
 var cfg Config
 var defaultCfgFile string = "pkgdex-prefs.json"
+var defaultFileMode os.FileMode = 0644
+var defaultDirMode os.FileMode = 0755
 
 func usage() {
 	fmt.Fprintf(os.Stderr, "usage: %s [options] SOURCE\n", os.Args[0])
@@ -23,9 +25,10 @@ func usage() {
 	os.Exit(2)
 }
 
-func godocify(ip string) (url string) {
-	url = "http://godoc.org/" + ip
-	return url
+func importName(ipath string) (name string) {
+	parts := strings.Split(ipath, "/")
+	name = parts[len(parts)-1]
+	return name
 }
 
 func main() {
@@ -66,9 +69,24 @@ func main() {
 		}
 	}
 
-	// now override config file with cli params
-	if destDir != "" {
-		cfg.DestDir = destDir
+	// if we aren't in test mode, make sure we have a dest dir
+	if testMode == false {
+
+		// override with flag
+		if destDir != "" {
+			cfg.DestDir = destDir
+		}
+
+		// make sure we have a dest dir
+		if destDir == "" {
+			fmt.Fprintf(os.Stderr, "no destination set in config file or flag\n")
+			os.Exit(1)
+		}
+	}
+
+	// sort out other config defaults
+	if cfg.DirIndex == "" {
+		cfg.DirIndex = "index.html"
 	}
 
 	// walk sourcedir. not bothering with subdirs because one level is good enough for now?
@@ -104,14 +122,18 @@ func main() {
 
 		// clean up pkg info
 		if pkg.Name == "" { // no package name so set to last part of importpath
-			importPathParts := strings.Split(pkg.ImportPath, "/")
-			pkg.Name = importPathParts[len(importPathParts)-1]
+			pkg.Name = importName(pkg.ImportPath)
+		}
+
+		if pkg.Godoc == "" { // no godoc url specified so make one from import path
+			pkg.Godoc = "http://godoc.org/" + pkg.ImportPath
 		}
 
 		pkgs = append(pkgs, pkg)
 
 	}
 
+	// pretty print and bail if in test mode
 	if testMode {
 		for i := range pkgs {
 			printPkg(pkgs[i])
@@ -119,9 +141,15 @@ func main() {
 		os.Exit(0)
 	}
 
-	// try to open dir
-	// check for global config file (pkgdex-prefs.json)
-	// walk other files
-	// gen index
 	// gen detail files
+	for i := range pkgs {
+		err = genPkgPage(pkgs[i])
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error generating page for package %s: %s\n", pkgs[i].Name, err)
+			os.Exit(1)
+		}
+	}
+
+	// gen index
+
 }
