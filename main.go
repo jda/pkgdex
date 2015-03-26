@@ -114,6 +114,14 @@ func main() {
 		}
 
 		fileName := filepath.Join(sourceDir, fileList[fileN].Name())
+
+		if filepath.Ext(fileName) != ".json" {
+			if debug {
+				fmt.Fprintf(os.Stderr, "Skipping file %s because not json\n", fileName)
+			}
+			continue // skip because pkg files must be .json
+		}
+
 		pkgCfgFile, err := ioutil.ReadFile(fileName)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Could not open package config %s because %s\n", fileName, err)
@@ -158,5 +166,13 @@ func main() {
 	}
 
 	// gen index
+	if cfg.NoIndex == false {
+		err = genIndexPage(pkgs)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error generating index page: %s\n", err)
+			os.Exit(1)
+		}
+	}
 
+	os.Exit(0)
 }

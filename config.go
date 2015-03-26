@@ -9,6 +9,10 @@ type Config struct {
 	PackageTemplate string `json:"pkgpagetmpl"`
 	IndexTemplate   string `json:"pkgindextmpl"`
 	DirIndex        string `json:"directory_index"`
+	Title           string `json:"title"`
+	OwnerContact    string `json:"owner_contact"`
+	OwnerURL        string `json:"owner_url"`
+	NoIndex         bool   `json:"noindex"`
 }
 
 type PkgCfg struct {
@@ -20,4 +24,5 @@ type PkgCfg struct {
 	Godoc      string `json:"godoc"`
 	Descr      string `json:"description"`
 	Humans     bool   `json:"humans"`
+	NoIndex    bool   `json:"noindex"`
 }
