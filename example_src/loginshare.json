@@ -1,0 +1,6 @@
+{
+	"importpath": "go.jona.me/loginshare",
+	"vcs": "git",
+	"repo": "https://github.com/jda/go-loginshare",
+	"description": "Go API for Kayako LoginShare"
+}

@@ -1,0 +1,6 @@
+{
+	"importpath": "go.jona.me/crowd",
+	"vcs": "git",
+	"repo": "https://github.com/jda/go-crowd",
+	"description": "Go API for Atlassian Crowd"
+}
