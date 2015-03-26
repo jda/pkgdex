@@ -21,9 +21,9 @@ var detailPackagePageHTML string = `<html>
 <title>{{ .Name }}{{ if .Descr }} - {{ .Descr }}{{ end }}</title>
 </head>
 <body>
-<h1>{{ .Name }}: {{ .ImportPath }}</h1>
+<h1>{{ .Name }}</h1>
 <p><i>{{ .Descr }}</i><br>
-{{ .VCS }}: {{ .Repo }}</p>
+{{ .VCS }}: <a href="{{ .Repo }}">{{ .Repo }}</a></p>
 <h2>Reference</h2>
 <a href="{{ .Godoc }}"><img src="{{ .Godoc }}?status.svg" alt="GoDoc"></a><br>
 {{ if .DocURL }}See also: <a href="{{ .DocURL }}">{{ .DocURL }}</a>{{ end }}
