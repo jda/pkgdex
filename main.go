@@ -15,6 +15,7 @@ import (
 )
 
 var cfg Config
+var debug bool
 var defaultCfgFile string = "pkgdex-prefs.json"
 var defaultFileMode os.FileMode = 0644
 var defaultDirMode os.FileMode = 0755
@@ -38,6 +39,7 @@ func main() {
 	flag.StringVar(&destDir, "dest", "", "output location (overrides pkgdex-prefs if set)")
 	flag.BoolVar(&testMode, "test", false, "do not create output, show information on screen")
 	flag.StringVar(&cfgFileName, "cfg", "", "override config file path (default is pkgdex-prefs.json in SOURCE")
+	flag.BoolVar(&debug, "debug", false, "debug mode")
 
 	flag.Usage = usage
 	flag.Parse()
@@ -69,16 +71,21 @@ func main() {
 		}
 	}
 
+	if debug {
+		fmt.Fprintf(os.Stderr, "Config as parsed:\n%+v\n", cfg)
+		fmt.Fprintf(os.Stderr, "Confg from flags:\nDest: %s\nTest: %s\nConfig: %s\n", destDir, testMode, cfgFileName)
+	}
+
+	// flag overrides cfg
+	if destDir != "" {
+		cfg.DestDir = destDir
+	}
+
 	// if we aren't in test mode, make sure we have a dest dir
 	if testMode == false {
 
-		// override with flag
-		if destDir != "" {
-			cfg.DestDir = destDir
-		}
-
 		// make sure we have a dest dir
-		if destDir == "" {
+		if cfg.DestDir == "" {
 			fmt.Fprintf(os.Stderr, "no destination set in config file or flag\n")
 			os.Exit(1)
 		}
