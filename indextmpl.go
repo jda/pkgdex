@@ -26,6 +26,7 @@ var indexPageHTML string = `<html>
 <th>Description</th>
 <th>Import Path</th>
 <th>Godoc</th>
+<th>See also</th>
 </tr>
 {{ range .Pkgs }}
  {{ if .NoIndex }}{{ else }}
@@ -34,6 +35,9 @@ var indexPageHTML string = `<html>
  <td>{{ .Descr }}</td>
  <td>{{ .ImportPath }}</td>
  <td><a href="{{ .Godoc }}"><img src="{{ .Godoc }}?status.svg" alt="GoDoc"></a></td>
+ {{ if .DocURL }}
+ <td><a href="http://{{ .DocURL }}">{{ .DocURL }}</a></td>
+ {{ end }}
  </tr>
  {{ end }}
 {{ end }}

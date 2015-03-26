@@ -3,5 +3,6 @@
 	"vcs": "git",
 	"repo": "https://github.com/jda/go-loginshare",
 	"description": "Go API for Kayako LoginShare",
-	"humans": true
+	"humans": true,
+	"docurl": "github.com/jda/go-loginshare"
 }
