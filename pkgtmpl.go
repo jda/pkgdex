@@ -17,7 +17,6 @@ var basicPackagePage = template.Must(template.New("basicPackagePage").Parse(basi
 // detail page is human readable
 var detailPackagePageHTML string = `<html>
 <head>
-<meta http-equiv="refresh" content="0; URL='{{ .Godoc }}'">
 <meta name="go-import" content="{{ .ImportPath }} {{ .VCS }} {{ .Repo }}">
 <title>{{ .Name }}{{ if .Descr }} - {{ .Descr }}{{ end }}</title>
 </head>
