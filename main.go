@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -94,6 +95,25 @@ func main() {
 	// sort out other config defaults
 	if cfg.DirIndex == "" {
 		cfg.DirIndex = "index.html"
+	}
+
+	// handle template overrides
+	if cfg.IndexTemplate != "" {
+		indexTmplFile := filepath.Join(sourceDir, cfg.IndexTemplate)
+		indexPage, err = template.ParseFiles(indexTmplFile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error parsing Index Template %s: %s", indexTmplFile, err)
+			os.Exit(1)
+		}
+	}
+
+	if cfg.PackageTemplate != "" {
+		pkgTmplFile := filepath.Join(sourceDir, cfg.PackageTemplate)
+		packagePage, err = template.ParseFiles(pkgTmplFile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error parsing Package Template %s: %s", pkgTmplFile, err)
+			os.Exit(1)
+		}
 	}
 
 	// walk sourcedir. not bothering with subdirs because one level is good enough for now?

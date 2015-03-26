@@ -1,3 +1,4 @@
 {
-	"title": "My go package index"
+	"title": "My go package index",
+	"pkgindextmpl": "index.tmpl"
 }
