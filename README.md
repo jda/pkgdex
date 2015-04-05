@@ -6,6 +6,8 @@ pkgdex generates a static website that serves as a canonical import path for you
 ## What
 Turn a collection of json files that describe packages into HTML files & directory structure that you can "go get"
 
+Example output: http://go.jona.me/
+
 ## Why
 * Canonical import path that you can point to different source code repos. Github getting DDoSed? Repoint to self-hosted git repo and keep running your CI
 * Wouldn't you rather users import your API library from my.company.com/myapi instead of github.com/company/myapi?
